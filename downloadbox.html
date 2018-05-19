@@ -1,0 +1,151 @@
+<div id="donate-box">
+   <div class="tabs-header">
+<img id="arrow-left-back" src="/images/arrow-left-3-xxl.png" alt="Go back to value selection"/>
+      <div class="header-content">
+         <span class="display-amount">
+         <span class="step-1 active">Choose an Amount</span>
+         </span>
+         <span class="circles">
+         <span class="step-1 circle active">
+         <i class="material-icons"></i>
+         <i class="material-icons"></i>
+         </span>
+         <span class="step-2 circle">
+         <i class="material-icons"></i>
+         </span>
+         </span>
+      </div>
+   </div>
+   <div class="tabs-content">
+      <div class="content step-1 active" id="donor-form-step-1">
+<p style="padding:18px 35px 0px 35px;">Starlight is FREE but please consider making a donation:</p>
+         <ul class="suggested-amounts less-margin">
+            <li class="amount-item">
+               <input type="radio" value="0" name="campo-radio" id="campo-radio1" checked />
+               <label for="campo-radio1"></label>
+               <span class="unit">$</span>
+               <span class="amount">0</span>
+            </li>
+            <li class="amount-item">
+               <input type="radio" value="5" name="campo-radio" id="campo-radio2"/>
+               <label for="campo-radio2"></label>
+               <span class="unit">$</span>
+               <span class="amount">5</span>
+            </li>
+            <li class="amount-item">
+               <input type="radio" value="10" name="campo-radio" id="campo-radio3" />
+               <label for="campo-radio3"></label>
+               <span class="unit">$</span>
+               <span class="amount">10</span>
+            </li>
+            <li class="amount-item">
+               <input type="radio" value="50" name="campo-radio" id="campo-radio4" />
+               <label for="campo-radio4"></label>
+               <span class="unit">$</span>
+               <span class="amount">50</span>
+            </li>
+            <li class="amount-item">
+               <input type="radio" value="100" name="campo-radio" id="campo-radio5" />
+               <label for="campo-radio5"></label>
+               <span class="unit">$</span>
+               <span class="amount">100</span>
+            </li>
+            <li class="amount-item">
+               <input type="radio" value="" name="campo-radio" id="campo-radio6" />
+               <label for="campo-radio6"></label>
+               <span class="unit">$</span>
+               <span class="amount" style="font-size: 14px;top: -8px;position:relative;">Type the amount<br>
+               <input id="custom_amount" min="0" step="any" inputmode="numeric" type="number" name="donation[custom_amount]">
+               </span>
+            </li>
+         </ul>
+         <div id="thank_you">
+                  <img src="/images/heart.jpg" style="width:245px;" alt="Heart"/>
+                  <p><span style="color:#FEACC2;font-weight:bold">Thank You</span> for your donation</p>
+                  <p>the download will begin shortly</p>
+         </div>
+         <div id="thank_you2">
+                  <p style="padding: 50px 0 50px 0;font-weight: bold;text-transform: capitalize;font-size: 16px;">the download will begin shortly</p>
+         </div>
+         <div id="content-paybuttons">
+            <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+            <div id="paypal-button-container"></div>
+<script>
+jQuery(document).ready(function($) {
+    var selectedradiovalue = "5";
+    $('.suggested-amounts input').on('change', function() {
+        if ($('input[name=campo-radio]:checked').attr('id') == 'campo-radio6') {
+            selectedradiovalue = $('#custom_amount').val();
+            if (selectedradiovalue == '' || selectedradiovalue == '0') {
+                $("#paypal-button-container").hide();
+                $('#custom_amount').css('cssText', 'box-shadow:0 0 3px #CC0000;border: 1px solid red;');
+                $("#donate-box-error").show();
+            } else {
+                $("#paypal-button-container").show();
+                $('#custom_amount').css('cssText', '');
+                $("#donate-box-error").hide();
+            }
+        } else {
+            selectedradiovalue = $('.suggested-amounts input[name=campo-radio]:checked').val();
+            $("#paypal-button-container").show();
+            $('#custom_amount').css('cssText', '');
+            $("#donate-box-error").hide();
+        }
+    });
+    // Render the PayPal button
+    paypal.Button.render({
+        // Set your environment
+        env: 'production', // sandbox | production
+        // Specify the style of the button
+        style: {
+            layout: 'vertical', // horizontal | vertical
+            size: 'medium', // medium | large | responsive
+            shape: 'rect', // pill | rect
+            color: 'gold' // gold | blue | silver | black
+        },
+        // Specify allowed and disallowed funding sources
+        // Options:
+        // - paypal.FUNDING.CARD
+        // - paypal.FUNDING.CREDIT
+        // - paypal.FUNDING.ELV
+        funding: {
+            allowed: [paypal.FUNDING.CARD, paypal.FUNDING.CREDIT],
+            disallowed: []
+        },
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox: 'AcHZfV7gWdMggUmnLPASk5p50t-vNJkcRTqEqC7zjYfBOujfl6sRP5gH9IIUOIa1yIDDVVWQP1TlnqCS',
+            production: 'AbJQZhaFErNubYtXU8AVH86ecnp-QBVQZ1GERAavJT3JJR3LIY_G_37iXTDp015_7N0V47bMtMRlf_Pe'
+        },
+        // var selected_value = $('.suggested-amounts input[name=campo-radio]:checked').val();
+        payment: function(data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [{
+                        amount: {
+                            total: selectedradiovalue,
+                            currency: 'USD'
+                        }
+                    }]
+                }
+            });
+        },
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function() {
+                $(".tabs-content #thank_you,#arrow-left-back").show();
+                $(".tabs-content .button,#content-paybuttons,.suggested-amounts.less-margin").hide();
+                $(".step-2.circle").append('<i class="material-icons"></i>');
+                window.location.href = 'https://dl.dropboxusercontent.com/s/wxt5xxgmqtso3ba/new.iso?dl=0';
+            });
+        }
+    }, '#paypal-button-container');
+});
+</script>
+         </div>
+<button class="button"><span>Download </span></button>
+<p id="donate-box-error">Type a value to continue</p>
+      </div>
+   </div>
+<img id="close-donate" src="/images/close.png" alt="close"/>
+</div>
