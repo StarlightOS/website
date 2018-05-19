@@ -1,0 +1,49 @@
+<script>
+jQuery(document).ready(function($) {
+    $(".suggested-amounts input").click(function() {
+        if($("#campo-radio1").is(':checked')) {
+            $(".tabs-content .button").show();
+            $("#content-paybuttons").hide();
+        }else{
+            $(".tabs-content .button").hide();
+            $("#content-paybuttons").show();
+        }
+    });
+    $("#donor-form-step-1 .button").click(function() {
+        $(".tabs-content #thank_you2,#arrow-left-back").show();
+        $(".tabs-content .button,#content-paybuttons,.suggested-amounts.less-margin").hide();
+        $(".step-2.circle").append('<i class="material-icons"></i>');
+        window.location.href = 'https://dl.dropboxusercontent.com/s/wxt5xxgmqtso3ba/new.iso?dl=0';
+    });
+    $(".step-1.circle.active,#arrow-left-back").click(function() {
+        $(".tabs-content #thank_you2,.tabs-content #thank_you,#arrow-left-back").hide();
+        $("#content-paybuttons,.suggested-amounts.less-margin").show();
+        $(".step-2.circle .material-icons:eq(1)").remove();
+        $(".campo-radio2").trigger('click');
+    });
+    $('.readon').html('Download Now!');
+    $(window).on('hashchange', function() {
+        if(window.location.hash == "#download") {
+            $("#donate-box").show();
+$('.gf-menu-toggle.active').trigger('click');
+            window.location.hash = "#";
+        }
+    });
+    $('.item110 a').click(function() {
+        $("#donate-box").show();
+$('.gf-menu-toggle.active').trigger('click');
+    });
+    $('#close-donate').click(function() {
+        $("#donate-box").hide();
+    });
+});
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113641933-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-113641933-3');
+</script>
