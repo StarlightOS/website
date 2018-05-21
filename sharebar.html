@@ -1,0 +1,38 @@
+<div id="sharebar"><span class="share-this-campaign-label" style="position:relative;margin-right:7px;bottom:-4px;float: left;">Share</span>
+        <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.starlightos.com&layout=button&size=small&mobile_iframe=true&width=58&height=20&appId" width="58" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+        <a href="https://twitter.com/home?status=The%20beautiful,%20gaming%20centric%20and%20easy%20to%20use%20Operational%20System.%20Download%20for%20free"><i class="fa fa-twitter"></i></a>
+        <a href="JavaScript:void windowOpener('https://www.reddit.com/submit?url=https://www.starlightos.com/&amp;title=Starlight Linux', '', 640,520);"><i class="fa fa-reddit"></i></a>
+        <a href="JavaScript:void windowOpener('https://pinterest.com/pin/create/button/?url=&media=https%3A//www.starlightos.com/images/og-image.jpg&description=The%20beautiful,%20gaming%20centric%20and%20easy%20to%20use%20Operational%20System.%20Download%20for%20free.', '', 640,520);"><i class="fa fa-pinterest"></i></a>
+</div>
+
+<script>
+function windowOpener(url, title, w, h) {
+    if (url.indexOf("https://www.linkedin.com") !== -1) {
+        function fixurl(fixme) {
+            fixme = fixme.replace("  ", " ");
+            fixme = fixme.replace(":", "%3A");
+            fixme = fixme.replace(" ", "%20");
+            fixme = fixme.replace("#", "%23");
+            fixme = fixme.replace("!", "%21");
+            fixme = fixme.replace("/", "%2F");
+            fixme = fixme.replace("@", "%40");
+            return fixme;
+        }
+        res1 = url.split("&title=")[0];
+        res2 = url.split("&title=")[1];
+        url = res1 + "&title=" + fixurl(res2);
+    }
+    // Fixes dual-screen position Most browsers
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'status=no,menubar=no,scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+}
+</script>
